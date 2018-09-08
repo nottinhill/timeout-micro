@@ -5,25 +5,11 @@ const cors = require('micro-cors')();
 // const controller = require('../../controller/index');
 const sleep = require('then-sleep');
 
-/*
-let auth = async (req, res) => {
-	const user = await auth0(req, process.env.AUTH0_DOMAIN);
-	if (!user) {
-		return send(res, 403, {error: 'Forbidden'});
-	}
-	return;
-};
-*/
-
 const timeout = async (req, res) => {
-
-    await sleep(60000); // 1 = 1ms
-    return 'Pong.';
-
-// 	console.log(req.params.sec);
-// 	await auth(req, res);
-// 	const timeoutResponse = await controller.timeout.timeout(req.params.timeout);
-// 	send(res, 200, timeoutResponse);
+	let sec = req.params.sec;
+	let ms = sec * 1000;
+	await sleep(ms);
+	send(res, 200, 'HTTP 200 - OK (Waited for ' + sec + ' seconds)');
 };
 
 const notFound = async (req, res) => {
